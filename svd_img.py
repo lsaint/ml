@@ -4,7 +4,7 @@ import numpy as np
 from sklearn.decomposition import PCA
 
 
-def channel_svg(channel, p=0.1):
+def channel_svd(channel, p=0.1):
     U, S, VT = np.linalg.svd(channel)
     k = int(len(S) * p)  # take the first k values by percentage
     sigma = np.diag(S[:k])  # build singular matrix
@@ -17,7 +17,7 @@ def channel_svg(channel, p=0.1):
 
 def rebuild_img_by_numpy(img, p):
     (R, G, B) = cv2.split(img)
-    ret = cv2.merge([channel_svg(R, p), channel_svg(G, p), channel_svg(B, p)])
+    ret = cv2.merge([channel_svd(R, p), channel_svd(G, p), channel_svd(B, p)])
     return ret
 
 
